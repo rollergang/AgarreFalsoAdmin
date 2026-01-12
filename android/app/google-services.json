@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "973979996824",
+    "firebase_url": "https://agarre-falso-default-rtdb.firebaseio.com",
+    "project_id": "agarre-falso",
+    "storage_bucket": "agarre-falso.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973979996824:android:e90f0a992a08d57b6636ed",
+        "android_client_info": {
+          "package_name": "com.example.agarre_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCJR9VQuZwBe88-eSVQW4zXjqy2RZBpe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973979996824:android:4d9d3162ed2d351c6636ed",
+        "android_client_info": {
+          "package_name": "com.example.agarre_falso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCJR9VQuZwBe88-eSVQW4zXjqy2RZBpe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
