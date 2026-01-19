@@ -1,3 +1,4 @@
+import 'package:agarre_admin/screens/exercises/exercises_screen.dart';
 import 'package:agarre_admin/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,9 @@ class AdminHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Panel de Profesor'),
+        title: const Text('Panel de Profesor', style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: false,
+        elevation: 0,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -29,95 +32,126 @@ class AdminHomeScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildMenuCard(
-              context,
-              icon: Icons.people,
-              title: 'Alumnos',
-              color: Colors.blue,
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Próximamente: Gestión de Alumnos'))
-                );
-              },
+            const Text(
+              "¿Qué quieres gestionar hoy?",
+              style: TextStyle(fontSize: 22, color: Colors.black54),
             ),
-            _buildMenuCard(
-              context,
-              icon: Icons.fitness_center,
-              title: 'Ejercicios',
-              color: Colors.orange,
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Próximamente: ABM Ejercicios'))
-                );
-              },
+            const SizedBox(height: 30),
+            
+            // Botón ALUMNOS
+            Expanded(
+              child: _buildBigCard(
+                context,
+                title: "ALUMNOS",
+                subtitle: "Asignar rutinas y ver progresos",
+                icon: Icons.people_alt_rounded,
+                color: Colors.blue.shade800,
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Próximamente: Lista de Alumnos"))
+                  );
+                },
+              ),
             ),
-            _buildMenuCard(
-              context,
-              icon: Icons.calendar_today,
-              title: 'Rutinas',
-              color: Colors.green,
-              onTap: () {},
+            
+            const SizedBox(height: 24),
+
+            // Botón EJERCICIOS
+            Expanded(
+              child: _buildBigCard(
+                context,
+                title: "EJERCICIOS",
+                subtitle: "Crear y editar el catálogo",
+                icon: Icons.fitness_center_rounded,
+                color: Colors.orange.shade800,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ExercisesScreen()),
+                  );
+                },
+              ),
             ),
-            _buildMenuCard(
-              context,
-              icon: Icons.settings,
-              title: 'Configuración',
-              color: Colors.grey,
-              onTap: () {},
-            ),
+            
+            const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildMenuCard(
+  Widget _buildBigCard(
     BuildContext context, {
-    required IconData icon,
     required String title,
+    required String subtitle,
+    required IconData icon,
     required Color color,
     required VoidCallback onTap,
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(24),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          color: color,
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.2),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
+              color: color.withOpacity(0.4),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
             )
           ],
-          border: Border.all(color: color.withOpacity(0.1)),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              color.withOpacity(0.8),
+              color,
+            ],
+          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                shape: BoxShape.circle,
+            Positioned(
+              right: -20,
+              bottom: -20,
+              child: Icon(
+                icon,
+                size: 150,
+                color: Colors.white.withOpacity(0.1),
               ),
-              child: Icon(icon, size: 40, color: color),
             ),
-            const SizedBox(height: 15),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 18, 
-                fontWeight: FontWeight.bold,
-                color: Colors.black87
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(icon, size: 50, color: Colors.white),
+                  const SizedBox(height: 16),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.9),
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

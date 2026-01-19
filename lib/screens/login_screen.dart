@@ -22,20 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() => _isLoading = true);
 
       try {
-        // 1. Autenticación Básica
         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _email,
           password: _password,
         );
 
-        // 2. VERIFICACIÓN DE SEGURIDAD (Portero)
         final userDoc = await FirebaseFirestore.instance
             .collection('admins')
             .doc(userCredential.user!.uid)
             .get();
 
         if (userDoc.exists) {
-          // ✅ ES ADMIN - Entramos
           if (mounted) {
             Navigator.pushReplacement(
               context,
