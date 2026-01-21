@@ -2,6 +2,7 @@ import 'package:agarre_admin/screens/exercises/exercises_screen.dart';
 import 'package:agarre_admin/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:agarre_admin/screens/students/students_screen.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({super.key});
@@ -49,10 +50,12 @@ class AdminHomeScreen extends StatelessWidget {
                 title: "ALUMNOS",
                 subtitle: "Asignar rutinas y ver progresos",
                 icon: Icons.people_alt_rounded,
-                color: Colors.blue.shade800,
+                color: Colors.blue.shade700,
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Próximamente: Lista de Alumnos"))
+                  // ✅ NAVEGACIÓN REAL AHORA
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const StudentsScreen()),
                   );
                 },
               ),
